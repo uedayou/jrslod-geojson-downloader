@@ -1,4 +1,10 @@
-# jrslod-geojson-downloader
+# 鉄道駅LOD GeoJSON ダウンローダー
+
+[鉄道駅LOD](https://uedayou.net/jrslod/)
+からRDFデータを取得して、位置情報データをGeoJSONに変換して、Webブラウザ上から
+ダウンロードが可能なVue.js製Webアプリです。
+
+鉄道駅LODのデータを使って Webアプリを作るときの参考としても利用できます。
 
 ## Project setup
 ```
