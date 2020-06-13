@@ -1,5 +1,5 @@
 <template>
-  <div id="root">
+  <div id="loader">
     <Map :geojson="geojson" />
     <v-overlay v-show="loading" z-index="1000">
       <v-progress-circular
