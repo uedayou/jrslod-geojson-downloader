@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from "axios"
+import axios from 'axios'
 import path from 'path'
 import { 
   getDataOfHasParts, 
@@ -16,7 +16,7 @@ import {
   CHUGOKU, 
   SHIKOKU, 
   KYUSYU 
-} from './lib/data'
+} from './lib/companies.json'
 
 Vue.use(Vuex)
 

@@ -2,7 +2,7 @@
   <v-main>
     <v-container fluid>
       <v-row>
-        <v-col cols="12" style="padding:0px">
+        <v-col cols="12" style="padding-bottom:0px">
           <Selector />
         </v-col>
         <v-col cols="12">

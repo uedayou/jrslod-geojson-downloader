@@ -73,6 +73,6 @@ export default {
   z-index:1000;
 }
 .selector-col {
-  padding:6px;
+  padding-bottom:0px;
 }
 </style>
