@@ -11,7 +11,7 @@
         :metric="true" />
       <l-tile-layer
         attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-        url="https://{s}.tile2.openstreetmap.jp/{z}/{x}/{y}.png" />
+        url=" https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <l-geo-json 
         :geojson="geojson" 
         :options="options"
