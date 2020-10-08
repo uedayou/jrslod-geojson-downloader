@@ -27,10 +27,11 @@ export default new Vuex.Store({
     companyList: [...HOKKAIDO,...TOHOKU,...KANTO,...CHUBU,...KINKI,...CHUGOKU,...SHIKOKU,...KYUSYU],
     lineList: [],
     stationList: [],
-    geojson: {},
+    geojson: null,
     target: {}
   },
   getters: {
+    isDownloadable: state => !!state.geojson,
     getTarget: state => state.target,
     getGeoJson: state => state.geojson,
     getCompanyList: state => state.companyList,

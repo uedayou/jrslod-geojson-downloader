@@ -3,6 +3,7 @@
     app
     color="primary"
     dark
+    style="z-index:2000"
   >
     <v-toolbar-title>
       鉄道駅LOD GeoJSON ダウンローダー
