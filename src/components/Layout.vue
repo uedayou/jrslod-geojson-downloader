@@ -7,9 +7,9 @@
 <v-card-text>
 鉄道路線をポリラインデータ、鉄道駅をポイントデータとしてGeoJSON形式でまとめてダウンロードが可能なページです。<br>
 例えば、鉄道会社「東日本旅客鉄道」(JR東日本)をプルダウンメニューから選択してダウンロードボタンを押すとJR東日本の全鉄道路線のポリラインデータをGeJSONファイルとしてダウンロードできます。<br>
-詳しくは以下のQiitaの記事を参照してください<br>
+詳しくは以下のZennの記事を参照してください<br>
 <br>
-<a href="https://qiita.com/uedayou/items/b5131b5ca930fe0bef69#%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E6%B4%BB%E7%94%A8%E6%B3%95" target="_blank"><b>Qiita:緯度経度付き鉄道オープンデータ提供サイト公開しました#ダウンロードしたデータの活用法</b></a>
+<a href="https://zenn.dev/uedayou/articles/1ed26f7d49c3e8118429" target="_blank"><b>Zenn:鉄道路線のGeoJSONをダウンロードする方法</b></a>
 </v-card-text>
           </v-card>
         </v-col>
