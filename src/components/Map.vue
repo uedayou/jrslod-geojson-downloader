@@ -38,7 +38,7 @@ export default {
     LGeoJson,
   },
   props: {
-    geojson: Object
+    geojson: [Object, Array]
   },
   data: () => ({
     center: [35, 135],
