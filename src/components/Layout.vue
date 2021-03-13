@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row>
         <v-col cols="12">
-          <v-card class="mx-auto" max-width="1024">
+          <v-card class="mx-auto text-card">
 <v-card-text>
 鉄道路線をポリラインデータ、鉄道駅をポイントデータとしてGeoJSON形式でまとめてダウンロードが可能なページです。<br>
 例えば、鉄道会社「東日本旅客鉄道」(JR東日本)をプルダウンメニューから選択してダウンロードボタンを押すとJR東日本の全鉄道路線のポリラインデータをGeJSONファイルとしてダウンロードできます。<br>
@@ -13,16 +13,16 @@
 </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="12" style="padding-bottom:0px">
-          <v-card class="mx-auto" max-width="1024">
-            <v-card-text style="padding-bottom:0px">
+        <v-col cols="12">
+          <v-card class="mx-auto text-card">
+            <v-card-text>
               Step.1 GeoJSONとしてダウンロードしたい鉄道会社、鉄道路線、鉄道駅を選択してください
             </v-card-text>
             <Selector />
           </v-card>
         </v-col>
         <v-col cols="12">
-          <v-card class="mx-auto" max-width="1024">
+          <v-card class="mx-auto text-card">
             <v-card-text>
               Step.2 ダウンロードできるGeoJSONファイルの内容を地図上で確認してください
             </v-card-text>
@@ -30,7 +30,7 @@
           </v-card>
         </v-col>
         <v-col cols="12">
-          <v-card class="mx-auto" max-width="1024">
+          <v-card class="mx-auto text-card">
             <v-card-text>
               Step.3 ボタンを押してファイルをダウンロードしてください
             </v-card-text>
@@ -54,15 +54,12 @@ export default {
     Loader,
     Selector,
   },
-  data: () => ({
-    //
-  }),
   methods: {
     downloadGeoJson() {
       if (this.$store.getters.getGeoJson) {
         const jsonStr = "data:text/json;charset=utf-8,"+
           encodeURIComponent(JSON.stringify(this.$store.getters.getGeoJson));
-        let a = document.createElement('a');
+        const a = document.createElement('a');
         a.setAttribute("href", jsonStr);
         a.setAttribute("download", this.$store.getters.getFilename+".geojson");
         document.body.appendChild(a);
@@ -73,3 +70,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.text-card {
+  max-width: 1024px !important
+}
+</style>

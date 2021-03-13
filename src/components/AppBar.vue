@@ -31,14 +31,12 @@
 <script>
 export default {
   name: 'AppBar',
-  data: () => ({
-  }),
   methods: {
     downloadGeoJson() {
       if (this.$store.getters.getGeoJson) {
         const jsonStr = "data:text/json;charset=utf-8,"+
           encodeURIComponent(JSON.stringify(this.$store.getters.getGeoJson));
-        let a = document.createElement('a');
+        const a = document.createElement('a');
         a.setAttribute("href", jsonStr);
         a.setAttribute("download", this.$store.getters.getFilename+".geojson");
         document.body.appendChild(a);

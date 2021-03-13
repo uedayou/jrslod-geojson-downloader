@@ -4,9 +4,11 @@ import axios from 'axios'
 import path from 'path'
 import { 
   getDataOfHasParts, 
-  getGeojsonsFromRdf,
-  getJrsLodDataAndUri
+  getGeojsonsFromRdf
 } from './lib/utils'
+import { 
+  getJrsLodDataAndUri
+} from './lib/jrs-utils'
 import { 
   HOKKAIDO, 
   TOHOKU, 
@@ -20,7 +22,7 @@ import {
 
 Vue.use(Vuex)
 
-const domain = `https://uedayou.net/jrslod/`;
+const SERVICE_URL = `https://uedayou.net/jrslod/`;
 
 export default new Vuex.Store({
   state: {
@@ -80,7 +82,7 @@ export default new Vuex.Store({
       const company = context.state.target.company;
       if (!company) return;
       try {
-        let thisUri = domain+company;
+        const thisUri = SERVICE_URL+company;
         let {hasparts} = await getJrsLodDataAndUri(thisUri);
         hasparts = hasparts.map(part=>path.basename(part));
         context.commit("setLineList", hasparts);
@@ -94,7 +96,7 @@ export default new Vuex.Store({
             line = context.state.target.line;
       if (!company || !line) return;
       try {
-        let thisUri = `${domain}${company}/${line}`;
+        const thisUri = `${SERVICE_URL}${company}/${line}`;
         let {hasparts} = await getJrsLodDataAndUri(thisUri);
         hasparts = hasparts.map(part=>path.basename(part));
         context.commit("setStationList", hasparts);
@@ -108,10 +110,10 @@ export default new Vuex.Store({
             station = context.state.target.station;
       if (!company || !line || !station) return;
       try {
-        let thisUri = `${domain}${company}/${line}/${station}`;
-        let {uri, obj} = await getJrsLodDataAndUri(thisUri);
+        const thisUri = `${SERVICE_URL}${company}/${line}/${station}`;
+        const {uri, obj} = await getJrsLodDataAndUri(thisUri);
         const gj = getGeojsonsFromRdf(obj, uri);
-        let geojson = {type: "FeatureCollection", features: [...gj]};
+        const geojson = {type: "FeatureCollection", features: [...gj]};
         context.commit("setGeoJson", geojson);
       } catch(e) {
         console.error(e);
@@ -122,8 +124,8 @@ export default new Vuex.Store({
             line = context.state.target.line;
       if (!company || !line) return;
       try {
-        let thisUri = `${domain}${company}/${line}`;
-        let {uri, obj, hasparts} = await getJrsLodDataAndUri(thisUri);
+        const thisUri = `${SERVICE_URL}${company}/${line}`;
+        const {uri, obj, hasparts} = await getJrsLodDataAndUri(thisUri);
         let geojson = await getDataOfHasParts(hasparts);
         const gj = getGeojsonsFromRdf(obj, uri);
         if (geojson.features) {
@@ -140,9 +142,9 @@ export default new Vuex.Store({
       const company = context.state.target.company;
       if (!company) return;
       try {
-        let thisUri = domain+company;
-        let {hasparts} = await getJrsLodDataAndUri(thisUri);
-        let geojson = await getDataOfHasParts(hasparts);
+        const thisUri = SERVICE_URL+company;
+        const {hasparts} = await getJrsLodDataAndUri(thisUri);
+        const geojson = await getDataOfHasParts(hasparts);
         context.commit("setGeoJson", geojson);
       } catch(e) {
         console.error(e);
@@ -150,14 +152,7 @@ export default new Vuex.Store({
     },
     async getAllCompaniesGeoJson(context) {
       try {
-        /*
-        // 各鉄道会社のデータから個別にダウンロードする場合(時間がかかる)
-        let list = context.state.companyList;
-        list = list.map(company=>domain+company);
-        let geojson = await getDataOfHasParts(list);
-        context.commit("setGeoJson", geojson);
-        */
-        let res = await axios.get(domain+"top.geojson");
+        const res = await axios.get(SERVICE_URL+"top.geojson");
         context.commit("setGeoJson", res.data);
       } catch(e) {
         console.error(e);
