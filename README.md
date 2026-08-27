@@ -10,6 +10,8 @@
 
 <https://uedayou.net/jrslod-geojson-downloader/>
 
+![動作の様子](docs/demo.gif)
+
 ## Project setup
 ```
 npm install
