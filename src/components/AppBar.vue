@@ -9,15 +9,14 @@
       鉄道駅LOD GeoJSON ダウンローダー
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-tooltip 
-      bottom
+    <v-tooltip
+      location="bottom"
       :max-width="250"
     >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn 
-          icon 
-          v-bind="attrs"
-          v-on="on"
+      <template v-slot:activator="{ props }">
+        <v-btn
+          icon
+          v-bind="props"
           @click="downloadGeoJson"
         >
           <v-icon>mdi-cloud-download</v-icon>

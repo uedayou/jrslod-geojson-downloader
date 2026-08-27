@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import Loader from './Loader'
-import Selector from './Selector'
+import Loader from './Loader.vue'
+import Selector from './Selector.vue'
 
 export default {
   name: 'Layout',

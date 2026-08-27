@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import AppBar from './components/AppBar';
-import Layout from './components/Layout';
+import AppBar from './components/AppBar.vue';
+import Layout from './components/Layout.vue';
 
 export default {
   name: 'App',

@@ -1,30 +1,27 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import axios from 'axios'
-import path from 'path'
-import { 
-  getDataOfHasParts, 
-  getGeojsonsFromRdf
+import { createStore } from 'vuex'
+import {
+  getDataOfHasParts,
+  getGeojsonsFromRdf,
+  getJson,
+  basename
 } from './lib/utils'
-import { 
+import {
   getJrsLodDataAndUri
 } from './lib/jrs-utils'
-import { 
-  HOKKAIDO, 
-  TOHOKU, 
-  KANTO, 
-  CHUBU, 
-  KINKI, 
-  CHUGOKU, 
-  SHIKOKU, 
-  KYUSYU 
+import {
+  HOKKAIDO,
+  TOHOKU,
+  KANTO,
+  CHUBU,
+  KINKI,
+  CHUGOKU,
+  SHIKOKU,
+  KYUSYU
 } from './lib/companies.json'
-
-Vue.use(Vuex)
 
 const SERVICE_URL = `https://uedayou.net/jrslod/`;
 
-export default new Vuex.Store({
+export default createStore({
   state: {
     companyList: [...HOKKAIDO,...TOHOKU,...KANTO,...CHUBU,...KINKI,...CHUGOKU,...SHIKOKU,...KYUSYU],
     lineList: [],
@@ -84,7 +81,7 @@ export default new Vuex.Store({
       try {
         const thisUri = SERVICE_URL+company;
         let {hasparts} = await getJrsLodDataAndUri(thisUri);
-        hasparts = hasparts.map(part=>path.basename(part));
+        hasparts = hasparts.map(part=>basename(part));
         context.commit("setLineList", hasparts);
         context.commit("setStationList", []);
       } catch (e) {
@@ -98,7 +95,7 @@ export default new Vuex.Store({
       try {
         const thisUri = `${SERVICE_URL}${company}/${line}`;
         let {hasparts} = await getJrsLodDataAndUri(thisUri);
-        hasparts = hasparts.map(part=>path.basename(part));
+        hasparts = hasparts.map(part=>basename(part));
         context.commit("setStationList", hasparts);
       } catch (e) {
         console.error(e);
@@ -152,8 +149,8 @@ export default new Vuex.Store({
     },
     async getAllCompaniesGeoJson(context) {
       try {
-        const res = await axios.get(SERVICE_URL+"top.geojson");
-        context.commit("setGeoJson", res.data);
+        const geojson = await getJson(SERVICE_URL+"top.geojson");
+        context.commit("setGeoJson", geojson);
       } catch(e) {
         console.error(e);
       }

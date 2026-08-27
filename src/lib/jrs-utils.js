@@ -1,5 +1,4 @@
-import axios from 'axios'
-import { getUriAndRdf } from './utils'
+import { getJson, getUriAndRdf } from './utils'
 
 export function getHasParts(obj) {
   const hasparts = [];
@@ -14,8 +13,8 @@ export function getHasParts(obj) {
 
 export async function getJrsLodDataAndUri(uri) {
   try {
-    const res = await axios.get( `${uri}.json`);
-    const o = getUriAndRdf(res.data, uri);
+    const data = await getJson(`${uri}.json`);
+    const o = getUriAndRdf(data, uri);
     const obj = o.obj;
     uri = o.uri;
     const hasparts = getHasParts(obj);

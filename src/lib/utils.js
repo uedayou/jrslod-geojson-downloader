@@ -1,5 +1,15 @@
-import axios from "axios";
 import {parse as WktParser} from 'wellknown';
+
+// fetch は HTTP エラーで reject しないため、!res.ok を明示的に throw する。
+// これを省くと呼び出し側の try/catch が 404/500 を捕捉できず undefined が下流に流れる。
+export async function getJson(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText}: ${url}`);
+  return res.json();
+}
+
+// 鉄道駅LOD の URI (https://uedayou.net/jrslod/東日本旅客鉄道/山手線) から末尾要素を取り出す。
+export const basename = (uri) => uri.split("/").pop();
 
 export function getUriAndRdf(rdfs, uri) {
   let obj = rdfs[uri];
@@ -28,13 +38,12 @@ export async function getDataOfHasParts(hasparts){
     if (gets.length===10||hasparts.length===i+1) {
       try {
         const rs = await Promise.all(
-          gets.map(_uri=>axios.get(`${_uri}.json`))
+          gets.map(async (_uri) => ({ uri: _uri, data: await getJson(`${_uri}.json`) }))
         );
-        for (const r of rs) {
-          let thatUri = r.config.url.replace(".json", "");
-          const o = getUriAndRdf(r.data, thatUri);
+        for (const { uri, data } of rs) {
+          const o = getUriAndRdf(data, uri);
           const obj = o.obj;
-          thatUri = o.uri;
+          const thatUri = o.uri;
           const gj = getGeojsonsFromRdf(obj, thatUri);
           gjs.push(...gj);
         }

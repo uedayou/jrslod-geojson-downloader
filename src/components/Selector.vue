@@ -7,8 +7,7 @@
       <v-autocomplete class="selector"
         :items="$store.getters.getCompanyList"
         label="鉄道会社"
-        return-object
-        @change="changeCompany"
+        @update:model-value="changeCompany"
       ></v-autocomplete>
     </v-col>
 
@@ -20,8 +19,7 @@
         :items="$store.getters.getLineList"
         :disabled="$store.getters.getLineList.length===0"
         label="路線"
-        return-object
-        @change="changeLine"
+        @update:model-value="changeLine"
       ></v-autocomplete>
     </v-col>
     <v-col class="selector-col"
@@ -32,8 +30,7 @@
         :items="$store.getters.getStationList"
         :disabled="$store.getters.getStationList.length===0"
         label="駅"
-        return-object
-        @change="changeStation"
+        @update:model-value="changeStation"
       ></v-autocomplete>
     </v-col>
   </v-row>

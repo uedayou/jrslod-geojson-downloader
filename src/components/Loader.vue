@@ -1,7 +1,12 @@
 <template>
   <div id="loader">
     <Map :geojson="geojson" />
-    <v-overlay v-show="loading" z-index="1000">
+    <v-overlay
+      v-model="loading"
+      class="align-center justify-center"
+      z-index="1000"
+      persistent
+    >
       <v-progress-circular
         indeterminate
         color="white">
@@ -11,7 +16,7 @@
 </template>
 
 <script>
-import Map from './Map';
+import Map from './Map.vue';
 
 export default {
   name: 'Loader',
