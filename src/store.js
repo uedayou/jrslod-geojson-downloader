@@ -8,22 +8,15 @@ import {
 import {
   getJrsLodDataAndUri
 } from './lib/jrs-utils'
-import {
-  HOKKAIDO,
-  TOHOKU,
-  KANTO,
-  CHUBU,
-  KINKI,
-  CHUGOKU,
-  SHIKOKU,
-  KYUSYU
-} from './lib/companies.json'
 
 const SERVICE_URL = `https://uedayou.net/jrslod/`;
+// 鉄道会社リスト。鉄道駅LOD の更新に追随するため実行時に取得する
+// （地方キー -> [{name, img?}, ...] という構造）。
+const COMPANIES_URL = `https://uedayou.net/static/jrslod/data/companies/latest.json`;
 
 export default createStore({
   state: {
-    companyList: [...HOKKAIDO,...TOHOKU,...KANTO,...CHUBU,...KINKI,...CHUGOKU,...SHIKOKU,...KYUSYU],
+    companyList: [],
     lineList: [],
     stationList: [],
     geojson: null,
@@ -72,9 +65,23 @@ export default createStore({
     },
     setStationList(state, stationList) {
       state.stationList = stationList;
+    },
+    setCompanyList(state, companyList) {
+      state.companyList = companyList;
     }
   },
   actions: {
+    async fetchCompanyList(context) {
+      try {
+        const data = await getJson(COMPANIES_URL);
+        // 全地方をまとめて名前のみの配列にする（複数地方に跨る会社は重複しうるが
+        // 既存挙動と同じ）。
+        const companyList = Object.values(data).flat().map(c => c.name);
+        context.commit("setCompanyList", companyList);
+      } catch (e) {
+        console.error(e);
+      }
+    },
     async getLineList(context) {
       const company = context.state.target.company;
       if (!company) return;

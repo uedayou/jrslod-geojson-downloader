@@ -39,6 +39,9 @@
 <script>
 export default {
   name: 'Selector',
+  created() {
+    this.$store.dispatch("fetchCompanyList");
+  },
   methods: {
     changeCompany(company) {
       this.$store.commit("setCompany", company);
