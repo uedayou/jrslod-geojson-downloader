@@ -74,9 +74,12 @@ export default createStore({
     async fetchCompanyList(context) {
       try {
         const data = await getJson(COMPANIES_URL);
-        // 全地方をまとめて名前のみの配列にする（複数地方に跨る会社は重複しうるが
-        // 既存挙動と同じ）。
-        const companyList = Object.values(data).flat().map(c => c.name);
+        // 地方ごとにグループ化したまま保持する（[{region, companies}, ...]）。
+        // 複数地方に跨る会社は各地方に現れる（重複は許容）。
+        const companyList = Object.entries(data).map(([region, companies]) => ({
+          region,
+          companies: companies.map(c => c.name),
+        }));
         context.commit("setCompanyList", companyList);
       } catch (e) {
         console.error(e);
