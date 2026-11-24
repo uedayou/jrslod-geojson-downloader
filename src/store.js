@@ -12,7 +12,7 @@ import {
 const SERVICE_URL = `https://uedayou.net/jrslod/`;
 // 鉄道会社リスト。鉄道駅LOD の更新に追随するため実行時に取得する
 // （地方キー -> [{name, img?}, ...] という構造）。
-const COMPANIES_URL = `https://uedayou.net/static/jrslod/data/companies/latest.json`;
+const COMPANIES_URL = `https://uedayou.net/jrslod/static/data/companies/latest.json`;
 
 export default createStore({
   state: {
